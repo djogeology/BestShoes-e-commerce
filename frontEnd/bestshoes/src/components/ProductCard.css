@@ -1,0 +1,23 @@
+/* ProductCard.css */
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    width: calc(25% - 1rem);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card h3 {
+    margin: 0.5rem 0;
+  }
+  
+  .product-card p {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
