@@ -1,0 +1,47 @@
+.footer {
+    background-color: #ce6a6a67;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Ensure content wraps properly */
+    position: relative; /* Ensure position context for absolute positioning */
+}
+
+.contact-info {
+    max-width: 300px;
+}
+
+.contact-info h2 {
+    margin-top: 0;
+}
+
+.map iframe {
+    width: 110%; /* Increased width for slightly larger square */
+    height: 100%; /* Adjusted dynamically using padding-bottom for square shape */
+    border: none; /* Remove unnecessary border */
+}
+
+.copy {
+    position: absolute;
+    bottom: 20px; /* Adjusted bottom spacing */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px; /* Adjust font size */
+    color: #fff; /* Adjust text color */
+    text-align: center; /* Center-align text */
+    width: 100%;
+    margin-bottom: 190px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    margin-top: 47px;
+}
+
+.social-icons a {
+    color: #fff; /* Adjust icon color */
+    text-decoration: none;
+}
+

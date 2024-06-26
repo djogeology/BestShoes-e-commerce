@@ -6,6 +6,7 @@ import Women from './components/Women';
 import Kids from './components/Kids';
 import OnSale from './components/OnSale';
 import New from './components/New';
+import Footer from './components/Footer';
 import './App.css';
 
 // Example product data
@@ -60,9 +61,12 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <div className="logo">BestShoes</div>
-        <input type="text" placeholder="Search..." className="search-bar" />
-        <nav className="nav">
+        <div className="logo" onClick={() => setCurrentView('home')}>BestShoes</div>
+        <div className='search-bar'>
+        <div class="input-container">
+        <input type="text" class="input-box" placeholder="Enter text here..."/>
+    </div></div>
+            <nav className="nav">
           <button onClick={() => setCurrentView('men')}>Men</button>
           <button onClick={() => setCurrentView('women')}>Women</button>
           <button onClick={() => setCurrentView('kids')}>Kids</button>
@@ -75,6 +79,7 @@ const App = () => {
         </div>
       </header>
       {renderView()}
+      <Footer />
     </div>
   );
 };

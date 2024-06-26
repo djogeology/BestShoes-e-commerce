@@ -13,19 +13,52 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #fff;
+  background-color: #ce6a6a67;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+  /* background-color: blue; */
+  color: red;
+}
+/* search bar */
+.search-bar {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0vh;
+            background-color: #f0f0f0;
+            margin-right: 24px;
+          }
+
+
+.input-container {
+  position: relative;
+  width: 300px;
+}
+.input-box {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-box:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+.input-box::placeholder {
+  color: #aaa;
 }
 
-.search-bar {
-  padding: 0.5rem;
-  font-size: 1rem;
-}
+/*  */
 
 .nav {
   display: flex;
@@ -35,7 +68,7 @@ body {
 .nav button {
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 1.5rem;
   cursor: pointer;
   text-decoration: none;
   color: #000;
