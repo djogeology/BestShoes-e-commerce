@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     FOREIGN KEY (`style_id`) REFERENCES `styles` (`id`),
     FOREIGN KEY (`brand_id`) REFERENCES`brands` (`id`)
 );
- INSERT INTO `brands` (id, name, logo)
+ INSERT INTO `brands` IF NOT EXISTS (id, name, logo)
  VALUES
  ( 'Nike', 'https://fbi.cults3d.com/uploaders/12999226/illustration-file/433aadb8-bb64-4b2a-88fa-84ba26c55814/309342364_123949997099727_5431565022481819547_n.jpg'),
  ( 'Adidas', 'https://www.shutterstock.com/image-photo/queenstown-singapore-march-11-2024-600nw-2435834739.jpg'),
@@ -67,14 +67,14 @@ CREATE TABLE IF NOT EXISTS `products` (
  ('Skechers', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhHRhhCB4pRIMtzAmyd9S2D5LRtqiTvO10w&s');
 
 
-INSERT INTO `categories` (id, name, image)
+INSERT INTO `categories` IF NOT EXISTS (id, name, image)
 VALUES
  (1, 'Men', 'https://www.blackstonefootwear.com/thumbnail/38/1b/3a/1715353028/ss24-category-men-general_1920x1920.jpg'),
  (2, 'Women', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi4BRAF9cITX06AkhbFklBw3r2MLtTdvTuVw&s'),
  (3, 'kids', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAYGhFlRA-JUYpA5dEH3uxZsJzNQAi2TbdiA&s');
 
 
-  INSERT INTO `styles` (id, name, image)
+  INSERT INTO `styles` IF NOT EXISTS (id, name, image)
     VALUES
     ('Sneakers', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHLLTBbrBcYYkglGYPti86DY0qk05pGmgSmQ&s'),
     ('Boots', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZVPnSYD3gKeSzpNQpU4e29T2KI7Bp_KpAkg&s'),
