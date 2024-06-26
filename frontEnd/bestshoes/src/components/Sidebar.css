@@ -1,0 +1,25 @@
+/* Sidebar.css */
+.sidebar {
+    width: 250px; /* Make sure the width matches the one set in CategoryPage.css */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .sidebar h3 {
+    margin-top: 0;
+  }
+  
+  .sidebar-section {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-section h4 {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-section label {
+    margin-left: 5px;
+  }
+  
