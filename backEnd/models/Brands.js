@@ -31,15 +31,15 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(name, logo, callback) { 
-    const query = 'INSERT INTO brands (name, logo) VALUES (?, ?)';
-    conn.query(query, [name, logo], (err, results) => {
+  update: function(id, name, logo, callback) { 
+    const query = 'UPDATE brands SET name = ?, logo = ? WHERE id = ?';
+    conn.query(query, [name, logo, id], (err, results) => {
       if (err) {
-        console.error('Error posting brand to database:', err.message);
+        console.error('Error updating brand in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('Brand posted to database successfully:', results);
+      console.log('Brand updated in database successfully:', results);
       callback(null, results);
     });
   },

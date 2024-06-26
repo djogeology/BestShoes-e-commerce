@@ -34,16 +34,17 @@ module.exports = {
       res.status(200).json({ message: 'Style added successfully', results });
     });
   },
-  postStyle: function(req, res) {
+  updateStyle: function(req, res) {
+    const styleId = req.params.id;
     const { name, image } = req.body;
 
-    styles.post(name, image, (err, results) => {
+    styles.update(styleId, name, image, (err, results) => {
       if (err) {
-        console.error('Error posting style:', err.message);
-        res.status(500).json({ error: 'Failed to post style' });
+        console.error('Error updating style:', err.message);
+        res.status(500).json({ error: 'Failed to update style' });
         return;
       }
-      res.status(200).json({ message: 'Style posted successfully', results });
+      res.status(200).json({ message: 'Style updated successfully', results });
     });
   },
   deleteStyle: function(req, res) {

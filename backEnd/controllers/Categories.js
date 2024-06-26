@@ -34,16 +34,17 @@ module.exports = {
       res.status(200).json({ message: 'Category added successfully', results });
     });
   },
-  postCategorie: function(req, res) {
+  updateCategorie: function(req, res) {
+    const categoryId = req.params.id;
     const { name, image } = req.body;
 
-    Categories.post(name, image, (err, results) => {
+    Categories.update(categoryId, name, image, (err, results) => {
       if (err) {
-        console.error('Error posting category:', err.message);
-        res.status(500).json({ error: 'Failed to post category' });
+        console.error('Error updating category:', err.message);
+        res.status(500).json({ error: 'Failed to update category' });
         return;
       }
-      res.status(200).json({ message: 'Category posted successfully', results });
+      res.status(200).json({ message: 'Category updated successfully', results });
     });
   },
   deleteCategorie: function(req, res) {

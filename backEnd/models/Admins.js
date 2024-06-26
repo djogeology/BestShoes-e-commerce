@@ -31,15 +31,15 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(username, password, image, callback) { 
-    const query = 'INSERT INTO admins (username, password, image) VALUES (?, ?, ?)';
-    conn.query(query, [username, password, image], (err, results) => {
+  update: function(id, username, password, image, callback) { 
+    const query = 'UPDATE admins SET username = ?, password = ?, image = ? WHERE id = ?';
+    conn.query(query, [username, password, image, id], (err, results) => {
       if (err) {
-        console.error('Error posting admin to database:', err.message);
+        console.error('Error updating admin in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('Admin posted to database successfully:', results);
+      console.log('Admin updated in database successfully:', results);
       callback(null, results);
     });
   },
