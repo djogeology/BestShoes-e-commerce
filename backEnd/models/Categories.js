@@ -31,15 +31,15 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(name, image, callback) { 
-    const query = 'INSERT INTO categories (name, image) VALUES (?, ?)';
-    conn.query(query, [name, image], (err, results) => {
+  update: function(id, name, image, callback) { 
+    const query = 'UPDATE categories SET name = ?, image = ? WHERE id = ?';
+    conn.query(query, [name, image, id], (err, results) => {
       if (err) {
-        console.error('Error posting category to database:', err.message);
+        console.error('Error updating category in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('Category posted to database successfully:', results);
+      console.log('Category updated in database successfully:', results);
       callback(null, results);
     });
   },

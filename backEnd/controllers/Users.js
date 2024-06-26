@@ -25,7 +25,6 @@ module.exports = {
   addUser: function(req, res) {
     const { fullname, username, password, email, address, phone, image } = req.body;
 
-    // Add user to the database using the model function
     users.add(fullname, username, password, email, address, phone, image, (err, results) => {
       if (err) {
         console.error('Error adding user:', err.message);
@@ -35,23 +34,22 @@ module.exports = {
       res.status(200).json({ message: 'User added successfully', results });
     });
   },
-  postUser: function(req, res) {
+  updateUser: function(req, res) {
+    const userId = req.params.id;
     const { fullname, username, password, email, address, phone, image } = req.body;
 
-    // Post user to the database using the model function
-    users.post(fullname, username, password, email, address, phone, image, (err, results) => {
+    users.update(userId, fullname, username, password, email, address, phone, image, (err, results) => {
       if (err) {
-        console.error('Error posting user:', err.message);
-        res.status(500).json({ error: 'Failed to post user' });
+        console.error('Error updating user:', err.message);
+        res.status(500).json({ error: 'Failed to update user' });
         return;
       }
-      res.status(200).json({ message: 'User posted successfully', results });
+      res.status(200).json({ message: 'User updated successfully', results });
     });
   },
   deleteUser: function(req, res) {
     const userId = req.params.id;
 
-    // Delete user from the database using the model function
     users.delete(userId, (err, results) => {
       if (err) {
         console.error('Error deleting user:', err.message);

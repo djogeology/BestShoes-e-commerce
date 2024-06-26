@@ -32,16 +32,16 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(product, callback) {
+  update: function(id, product, callback) {
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = product;
-    const query = 'INSERT INTO products (name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    conn.query(query, [name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at], (err, results) => {
+    const query = 'UPDATE products SET name = ?, price = ?, description = ?, image = ?, size = ?, quantity = ?, state = ?, category_id = ?, style_id = ?, brand_id = ?, created_at = ? WHERE id = ?';
+    conn.query(query, [name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at, id], (err, results) => {
       if (err) {
-        console.error('Error posting product to database:', err.message);
+        console.error('Error updating product in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('Product posted to database successfully:', results);
+      console.log('Product updated in database successfully:', results);
       callback(null, results);
     });
   },

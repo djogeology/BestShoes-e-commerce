@@ -34,16 +34,17 @@ module.exports = {
       res.status(200).json({ message: 'Brand added successfully', results });
     });
   },
-  postBrand: function(req, res) {
+  updateBrand: function(req, res) {
+    const brandId = req.params.id;
     const { name, logo } = req.body;
 
-    Brands.post(name, logo, (err, results) => {
+    Brands.update(brandId, name, logo, (err, results) => {
       if (err) {
-        console.error('Error posting brand:', err.message);
-        res.status(500).json({ error: 'Failed to post brand' });
+        console.error('Error updating brand:', err.message);
+        res.status(500).json({ error: 'Failed to update brand' });
         return;
       }
-      res.status(200).json({ message: 'Brand posted successfully', results });
+      res.status(200).json({ message: 'Brand updated successfully', results });
     });
   },
   deleteBrand: function(req, res) {

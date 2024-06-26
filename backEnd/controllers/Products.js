@@ -48,7 +48,8 @@ module.exports = {
       res.status(200).json({ message: 'Product added successfully', results });
     });
   },
-  postProduct: function(req, res) {
+  updateProduct: function(req, res) {
+    const productId = req.params.id;
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = req.body;
 
     const product = {
@@ -65,13 +66,13 @@ module.exports = {
       created_at
     };
 
-    Products.post(product, (err, results) => {
+    Products.update(productId, product, (err, results) => {
       if (err) {
-        console.error('Error posting product:', err.message);
-        res.status(500).json({ error: 'Failed to post product' });
+        console.error('Error updating product:', err.message);
+        res.status(500).json({ error: 'Failed to update product' });
         return;
       }
-      res.status(200).json({ message: 'Product posted successfully', results });
+      res.status(200).json({ message: 'Product updated successfully', results });
     });
   },
   deleteProduct: function(req, res) {

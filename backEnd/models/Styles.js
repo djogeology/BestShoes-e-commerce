@@ -2,20 +2,20 @@ const conn = require('../Database/index');
 
 module.exports = {
   getAll: function(callback) {
-    const sql = 'SELECT * FROM `styles`';
+    const sql = 'SELECT * FROM styles';
     conn.query(sql, function(error, results) {
       callback(error, results);
     });
   },
-  add: function(name, image, callback) { 
-    const query = 'INSERT INTO users (name, image) VALUES (?, ?)';
+  add: function(name, image, callback) {
+    const query = 'INSERT INTO styles (name, image) VALUES (?, ?)';
     conn.query(query, [name, image], (err, results) => {
       if (err) {
         console.error('Error adding style to database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('style added to database successfully:', results);
+      console.log('Style added to database successfully:', results);
       callback(null, results);
     });
   },
@@ -31,15 +31,15 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(name, image, callback) { 
-    const query = 'INSERT INTO styles (name, image) VALUES (?, ?)';
-    conn.query(query, [name, image], (err, results) => {
+  update: function(id, name, image, callback) {
+    const query = 'UPDATE styles SET name = ?, image = ? WHERE id = ?';
+    conn.query(query, [name, image, id], (err, results) => {
       if (err) {
-        console.error('Error posting style to database:', err.message);
+        console.error('Error updating style in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('Style posted to database successfully:', results);
+      console.log('Style updated in database successfully:', results);
       callback(null, results);
     });
   },
@@ -56,4 +56,3 @@ module.exports = {
     });
   }
 };
-

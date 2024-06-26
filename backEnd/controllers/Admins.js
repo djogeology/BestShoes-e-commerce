@@ -35,17 +35,18 @@ module.exports = {
       res.status(200).json({ message: 'Admin added successfully', results });
     });
   },
-  postAdmin: function(req, res) {
+  updateAdmin: function(req, res) {
+    const adminId = req.params.id;
     const { username, password, image } = req.body;
 
-    // Post admin to the database using the model function
-    Admins.post(username, password, image, (err, results) => {
+    // Update admin in the database using the model function
+    Admins.update(adminId, username, password, image, (err, results) => {
       if (err) {
-        console.error('Error posting admin:', err.message);
-        res.status(500).json({ error: 'Failed to post admin' });
+        console.error('Error updating admin:', err.message);
+        res.status(500).json({ error: 'Failed to update admin' });
         return;
       }
-      res.status(200).json({ message: 'Admin posted successfully', results });
+      res.status(200).json({ message: 'Admin updated successfully', results });
     });
   },
   deleteAdmin: function(req, res) {

@@ -91,7 +91,7 @@ VALUES
 
 
 
-INSERT INTO `products` (name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at)
+INSERT INTO `products` IF NOT EXISTS (name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at)
 VALUES
   ('Nike Air Zoom Pegasus', 120.00, 'A versatile running shoe with responsive cushioning.', '["https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_b2a91fed-f698-4281-b0e0-2171a29bee7b_x480.jpg?v=1708690856","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_dbaa7b93-5ecd-43ba-a4e4-3051666890cd_x480.jpg?v=1708360774","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_592de726-1a27-4b18-80e6-6d00343ce7ab_x480.jpg?v=1708683582","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_05db3db7-cf39-451b-a1da-5a9917328d5b_x480.jpg?v=1708681931","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_c5f0b928-e88b-4524-89c9-c6343cb8c6c0_x480.jpg?v=1708683002"]', '[40,41,42,43,44]', 50, 'Available', 1, 1, 1, '2024-06-24 00:00:00'),
   ('Nike Air Zoom Pegasus', 90.00, 'A versatile running shoe with responsive cushioning.', '["https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_3a3b63c3-dd8c-44e6-bfea-9fdf9a1b610e_x480.jpg?v=1708360605","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_ace5221c-a726-45b4-9673-022a0534b08c_x480.jpg?v=1717484040","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_491028a3-343a-455b-8de6-5b2b54d2e197_x480.jpg?v=1708784307","https://cdn.shopify.com/s/files/1/0603/3031/1875/files/main-square_73eb8d29-8161-4551-a74d-e83cb2522588_x480.jpg?v=1708784307"]', '[35,36,37,38,39,40]', 42, 'Available', 2, 1, 1, '2024-06-24 00:00:00'),

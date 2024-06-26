@@ -2,7 +2,7 @@ const conn = require('../Database/index');
 
 module.exports = {
   getAll: function(callback) {
-    const sql = 'SELECT * FROM `users`';
+    const sql = 'SELECT * FROM users';
     conn.query(sql, function(error, results) {
       callback(error, results);
     });
@@ -19,9 +19,9 @@ module.exports = {
       callback(null, results);
     });
   },
-  add: function(fullname, username, password, email, Adress, phone, image, callback) { 
-    const query = 'INSERT INTO users (fullname, username, password, email, Adress, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    conn.query(query, [fullname, username, password, email, Adress, phone, image], (err, results) => {
+  add: function(fullname, username, password, email, address, phone, image, callback) {
+    const query = 'INSERT INTO users (fullname, username, password, email, address, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    conn.query(query, [fullname, username, password, email, address, phone, image], (err, results) => {
       if (err) {
         console.error('Error adding user to database:', err.message);
         callback(err, null);
@@ -31,15 +31,15 @@ module.exports = {
       callback(null, results);
     });
   },
-  post: function(fullname, username, password, email, address, phone, image, callback) { 
-    const query = 'INSERT INTO users (fullname, username, password, email, address, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    conn.query(query, [fullname, username, password, email, address, phone, image], (err, results) => {
+  update: function(id, fullname, username, password, email, address, phone, image, callback) {
+    const query = 'UPDATE users SET fullname = ?, username = ?, password = ?, email = ?, address = ?, phone = ?, image = ? WHERE id = ?';
+    conn.query(query, [fullname, username, password, email, address, phone, image, id], (err, results) => {
       if (err) {
-        console.error('Error posting user to database:', err.message);
+        console.error('Error updating user in database:', err.message);
         callback(err, null);
         return;
       }
-      console.log('User posted to database successfully:', results);
+      console.log('User updated in database successfully:', results);
       callback(null, results);
     });
   },
