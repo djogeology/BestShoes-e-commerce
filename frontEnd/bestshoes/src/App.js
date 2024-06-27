@@ -10,7 +10,6 @@ import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
 import Cart from './components/cart'
 import './App.css';
-
 // Example product data
 const productData = {
   men: [
@@ -191,8 +190,7 @@ const App = () => {
     setIsRegisterOpen(false);
   };
 
-  const handleLoginSuccess = (user) => {
-    setUser(user);
+  const handleLoginSuccess = () => {
     setIsLoginOpen(false);
     setCurrentView('home');
   };
@@ -240,7 +238,7 @@ const App = () => {
         <div className="header-icons">
           {user ? (
             <>
-              <img src={URL.createObjectURL(user.image)} alt="User" className="user-image" />
+              <img src={user.image} alt="User" className="user-image" />
               <div className="sign-in">{user.username}</div>
             </>
           ) : (
@@ -256,6 +254,7 @@ const App = () => {
           onClose={handleClosePopup}
           onSuccess={handleLoginSuccess}
           onRegisterClick={handleRegisterClick}
+          LogonUser={setUser}
         />
       )}
       {isRegisterOpen && (
