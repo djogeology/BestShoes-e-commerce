@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPopup.css';
 import axios from 'axios';
+import logo from "../images/logo.jpg"
 
 const LoginPopup = ({ onClose, onSuccess, onRegisterClick,LogonUser }) => {
   const [email, setEmail] = useState('');
@@ -44,7 +45,10 @@ const LoginPopup = ({ onClose, onSuccess, onRegisterClick,LogonUser }) => {
     <div className="login-popup">
       <div className="popup-content">
         <button className="close-btn" onClick={onClose}>X</button>
-        <h2>Sign In</h2>
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
+          <h2>Sign In</h2>
+        </div>
         <input
           type="email"
           placeholder="Email Address"
