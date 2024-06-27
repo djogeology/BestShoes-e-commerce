@@ -8,29 +8,155 @@ import New from './components/New';
 import Footer from './components/Footer';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
+import Cart from './components/cart'
 import './App.css';
 // Example product data
 const productData = {
   men: [
-    { id: 1, name: "Men's Sneaker 1", image: 'path/to/mens-sneaker1.jpg', price: '$50' },
-    { id: 2, name: "Men's Sneaker 2", image: 'path/to/mens-sneaker2.jpg', price: '$60' },
-  ],
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8aa6d9ab-ac50-44e8-a8d1-cf315304b782/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8a0fc185-f9d9-4046-8804-adebf3f345a5/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/854c9504-312a-46ec-ad9a-4fb8d191f5e4/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bf827ee4-5566-4147-9077-35d848971e2a/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d792d565-20d2-42b7-8d1e-cb966cfab2f4/air-jordan-1-high-85-metallic-burgundy-shoes-QCCSvs.png',
+      ],
+    },   
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'link_to_nike_dunk_low_main_image',
+        'link_to_nike_dunk_low_variation_image1',
+        'link_to_nike_dunk_low_variation_image2',
+        'link_to_nike_dunk_low_variation_image3',
+        'link_to_nike_dunk_low_variation_image4',
+      ],
+    },  ],
   women: [
-    { id: 1, name: "Women's High Heel 1", image: 'path/to/womens-high-heel1.jpg', price: '$70' },
-    { id: 2, name: "Women's High Heel 2", image: 'path/to/womens-high-heel2.jpg', price: '$80' },
-  ],
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8aa6d9ab-ac50-44e8-a8d1-cf315304b782/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8a0fc185-f9d9-4046-8804-adebf3f345a5/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/854c9504-312a-46ec-ad9a-4fb8d191f5e4/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bf827ee4-5566-4147-9077-35d848971e2a/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d792d565-20d2-42b7-8d1e-cb966cfab2f4/air-jordan-1-high-85-metallic-burgundy-shoes-QCCSvs.png',
+      ],
+    },   
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'link_to_nike_dunk_low_main_image',
+        'link_to_nike_dunk_low_variation_image1',
+        'link_to_nike_dunk_low_variation_image2',
+        'link_to_nike_dunk_low_variation_image3',
+        'link_to_nike_dunk_low_variation_image4',
+      ],
+    },  ],
   kids: [
-    { id: 1, name: "Kid's Shoe 1", image: 'path/to/kids-shoe1.jpg', price: '$30' },
-    { id: 2, name: "Kid's Shoe 2", image: 'path/to/kids-shoe2.jpg', price: '$40' },
-  ],
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8aa6d9ab-ac50-44e8-a8d1-cf315304b782/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8a0fc185-f9d9-4046-8804-adebf3f345a5/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/854c9504-312a-46ec-ad9a-4fb8d191f5e4/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bf827ee4-5566-4147-9077-35d848971e2a/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d792d565-20d2-42b7-8d1e-cb966cfab2f4/air-jordan-1-high-85-metallic-burgundy-shoes-QCCSvs.png',
+      ],
+    },   
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'link_to_nike_dunk_low_main_image',
+        'link_to_nike_dunk_low_variation_image1',
+        'link_to_nike_dunk_low_variation_image2',
+        'link_to_nike_dunk_low_variation_image3',
+        'link_to_nike_dunk_low_variation_image4',
+      ],
+    },  ],
   onSale: [
-    { id: 1, name: 'On Sale Shoe 1', image: 'path/to/on-sale-shoe1.jpg', price: '$20' },
-    { id: 2, name: 'On Sale Shoe 2', image: 'path/to/on-sale-shoe2.jpg', price: '$25' },
-  ],
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8aa6d9ab-ac50-44e8-a8d1-cf315304b782/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8a0fc185-f9d9-4046-8804-adebf3f345a5/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/854c9504-312a-46ec-ad9a-4fb8d191f5e4/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bf827ee4-5566-4147-9077-35d848971e2a/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d792d565-20d2-42b7-8d1e-cb966cfab2f4/air-jordan-1-high-85-metallic-burgundy-shoes-QCCSvs.png',
+      ],
+    },   
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'link_to_nike_dunk_low_main_image',
+        'link_to_nike_dunk_low_variation_image1',
+        'link_to_nike_dunk_low_variation_image2',
+        'link_to_nike_dunk_low_variation_image3',
+        'link_to_nike_dunk_low_variation_image4',
+      ],
+    },  ],
   new: [
-    { id: 1, name: 'New Arrival 1', image: 'path/to/new-arrival1.jpg', price: '$90' },
-    { id: 2, name: 'New Arrival 2', image: 'path/to/new-arrival2.jpg', price: '$100' },
-  ],
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8aa6d9ab-ac50-44e8-a8d1-cf315304b782/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8a0fc185-f9d9-4046-8804-adebf3f345a5/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/854c9504-312a-46ec-ad9a-4fb8d191f5e4/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/bf827ee4-5566-4147-9077-35d848971e2a/air-jordan-13-retro-dune-red-mens-shoes-sGwKd5.png',
+        'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d792d565-20d2-42b7-8d1e-cb966cfab2f4/air-jordan-1-high-85-metallic-burgundy-shoes-QCCSvs.png',
+      ],
+    },   
+    {
+      name: 'Nike Dunk Low',
+      category: 'Men Shoes',
+      color: 'White - Grey Fog',
+      price: '£109.99',
+      isFavorite: false,
+      images: [
+        'link_to_nike_dunk_low_main_image',
+        'link_to_nike_dunk_low_variation_image1',
+        'link_to_nike_dunk_low_variation_image2',
+        'link_to_nike_dunk_low_variation_image3',
+        'link_to_nike_dunk_low_variation_image4',
+      ],
+    },  ],
 };
 
 const App = () => {
@@ -38,6 +164,23 @@ const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const initialCartItems = [
+    {
+      id: 1,
+      name: 'Nike Dunk Low',
+      price: 109.99,
+      image: 'https://your-image-url.com/nike-dunk-low.jpg',
+      quantity: 1,
+    },
+    {
+      id: 2,
+      name: 'New Balance 9060',
+      price: 159.99,
+      image: 'https://your-image-url.com/new-balance-9060.jpg',
+      quantity: 2,
+    },
+  ];
+  const [cartItems, setCartItems] = useState(initialCartItems);
 
   const handleLoginClick = () => setIsLoginOpen(true);
   const handleRegisterClick = () => setIsRegisterOpen(true);
@@ -69,6 +212,8 @@ const App = () => {
         return <OnSale products={productData.onSale} />;
       case 'new':
         return <New products={productData.new} />;
+        case 'cart':
+        return <Cart cartItems={cartItems} setCartItems={setCartItems} initialCartItems={initialCartItems}/>;
       default:
         return <HomePage />;
     }
@@ -99,7 +244,7 @@ const App = () => {
           ) : (
             <div className="sign-in" onClick={handleLoginClick}>Sign In</div>
           )}
-          <div className="cart-icon">🛒</div>
+          <div className="cart-icon" onClick={()=>setCurrentView('cart')}>🛒</div>
         </div>
       </header>
       {renderView()}
