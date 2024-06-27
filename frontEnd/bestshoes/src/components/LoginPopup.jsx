@@ -76,7 +76,13 @@ const LoginPopup = ({ onClose, onSuccess, onRegisterClick,LogonUser }) => {
         </div>
         <button onClick={handleLogin} className="login-btn">Sign In</button>
         <button onClick={onRegisterClick} className="register-btn">Create Account</button>
-        <a href="#" className="forgot-password" onClick={() => setForgotPasswordOpen(true)}>Forgot Password?</a>
+        <button
+          type="button"
+          className="forgot-password"
+          onClick={() => setForgotPasswordOpen(true)}
+        >
+          Forgot Password?
+        </button>
       </div>
       {forgotPasswordOpen && (
         <div className="forgot-password-popup">
