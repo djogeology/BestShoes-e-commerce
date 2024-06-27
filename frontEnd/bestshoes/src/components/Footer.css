@@ -2,7 +2,7 @@
     background-color: #ce6a6a67;
     padding-top: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap; /* Ensure content wraps properly */
     position: relative; /* Ensure position context for absolute positioning */
