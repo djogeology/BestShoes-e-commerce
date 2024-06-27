@@ -20,7 +20,7 @@ module.exports = {
     });
   },
   add: function(fullname, username, password, email, address, phone, image, callback) {
-    const query = 'INSERT INTO users (fullname, username, password, email, address, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO users (fullname, username, password, email, Adress, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
     conn.query(query, [fullname, username, password, email, address, phone, image], (err, results) => {
       if (err) {
         console.error('Error adding user to database:', err.message);
@@ -32,7 +32,7 @@ module.exports = {
     });
   },
   update: function(id, fullname, username, password, email, address, phone, image, callback) {
-    const query = 'UPDATE users SET fullname = ?, username = ?, password = ?, email = ?, address = ?, phone = ?, image = ? WHERE id = ?';
+    const query = 'UPDATE users SET fullname = ?, username = ?, password = ?, email = ?, Adress = ?, phone = ?, image = ? WHERE id = ?';
     conn.query(query, [fullname, username, password, email, address, phone, image, id], (err, results) => {
       if (err) {
         console.error('Error updating user in database:', err.message);

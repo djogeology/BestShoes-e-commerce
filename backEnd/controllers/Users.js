@@ -23,12 +23,12 @@ module.exports = {
     });
   },
   addUser: function(req, res) {
-    const { fullname, username, password, email, address, phone, image } = req.body;
+    const { fullname, username, password, email, Adress, phone, image } = req.body;
 
-    users.add(fullname, username, password, email, address, phone, image, (err, results) => {
+    users.add(fullname, username, password, email, Adress, phone, image, (err, results) => {
       if (err) {
-        console.error('Error adding user:', err.message);
-        res.status(500).json({ error: 'Failed to add user' });
+        console.log(err)
+        res.status(500).json({err});
         return;
       }
       res.status(200).json({ message: 'User added successfully', results });
@@ -36,9 +36,9 @@ module.exports = {
   },
   updateUser: function(req, res) {
     const userId = req.params.id;
-    const { fullname, username, password, email, address, phone, image } = req.body;
+    const { fullname, username, password, email, Adress, phone, image } = req.body;
 
-    users.update(userId, fullname, username, password, email, address, phone, image, (err, results) => {
+    users.update(userId, fullname, username, password, email, Adress, phone, image, (err, results) => {
       if (err) {
         console.error('Error updating user:', err.message);
         res.status(500).json({ error: 'Failed to update user' });

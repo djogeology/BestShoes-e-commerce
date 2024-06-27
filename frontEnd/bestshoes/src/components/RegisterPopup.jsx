@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './RegisterPopup.css';
+import axios from 'axios' ;
 
 const RegisterPopup = ({ onClose, onSuccess }) => {
   const [form, setForm] = useState({
@@ -7,7 +8,7 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
     username: '',
     email: '',
     password: '',
-    address: '',
+    Adress: '',
     phone: '',
     image: ''
   });
@@ -21,10 +22,16 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
   };
 
   const handleRegister = () => {
-    // Add registration logic here
-    // If registration is successful:
+    saveToDb();
     onSuccess();
   };
+  const saveToDb= function(){
+    axios.post("http://localhost:3000/api/users",form)
+    .then(response=>{console.log(response.data)})
+    .catch(err=>{
+      console.log(err);
+    })
+  }
 
   return (
     <div className="register-popup">
@@ -65,9 +72,9 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
         />
         <input
           type="text"
-          name="address"
-          placeholder="Address"
-          value={form.address}
+          name="Adress"
+          placeholder="Adress"
+          value={form.Adress}
           onChange={handleChange}
           required
         />
@@ -80,9 +87,9 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
           required
         />
         <input
-          type="file"
+          type="text"
           name="image"
-          onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
+          onChange={handleChange}
           required
         />
         <label>
