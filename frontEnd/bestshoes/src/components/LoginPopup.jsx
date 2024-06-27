@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './LoginPopup.css';
-import logo from "../images/logo.jpg"
+import logo from "../images/logo.jpg";
 
 const LoginPopup = ({ onClose, onSuccess, onRegisterClick }) => {
   const [email, setEmail] = useState('');
@@ -62,7 +62,13 @@ const LoginPopup = ({ onClose, onSuccess, onRegisterClick }) => {
         </div>
         <button onClick={handleLogin} className="login-btn">Sign In</button>
         <button onClick={onRegisterClick} className="register-btn">Create Account</button>
-        <a href="#" className="forgot-password" onClick={() => setForgotPasswordOpen(true)}>Forgot Password?</a>
+        <button
+          type="button"
+          className="forgot-password"
+          onClick={() => setForgotPasswordOpen(true)}
+        >
+          Forgot Password?
+        </button>
       </div>
       {forgotPasswordOpen && (
         <div className="forgot-password-popup">
