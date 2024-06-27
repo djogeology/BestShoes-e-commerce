@@ -1,6 +1,18 @@
 const users = require('../models/Users');
 
 module.exports = {
+  getUserByEmailAndPass: function(req, res) {
+    const {email,password} = req.body
+
+    users.CheckLogin(email,password, function(err, results) {
+      if (err) {
+        console.error('Error fetching user by ID:', err.message);
+        res.status(500).json({ error: 'Failed to fetch user by ID' });
+        return;
+      }
+      res.status(200).json(results);
+    });
+  },
   getAllUsers: function(req, res) {
     users.getAll(function(err, results) {
       if (err) {

@@ -7,7 +7,13 @@ body {
 .app {
   text-align: center;
 }
-
+.user-image {
+  max-width: 100px; /* Adjust the maximum width as per your navbar's requirements */
+  max-height: 40px; /* Adjust the maximum height as per your navbar's requirements */
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+}
 .header {
   display: flex;
   justify-content: space-between;

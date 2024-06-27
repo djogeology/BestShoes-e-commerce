@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './LoginPopup.css';
+import axios from 'axios';
 
-const LoginPopup = ({ onClose, onSuccess, onRegisterClick }) => {
+const LoginPopup = ({ onClose, onSuccess, onRegisterClick,LogonUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -10,11 +11,24 @@ const LoginPopup = ({ onClose, onSuccess, onRegisterClick }) => {
   const [forgotError, setForgotError] = useState('');
 
   const handleLogin = () => {
-    // Add authentication logic here
-    // If authentication is successful:
-    const user = { email, username: "User", image: '' }; // Replace with actual user data
-    onSuccess(user);
+    checkLogin();
   };
+  const checkLogin=function(){
+    axios.post("http://localhost:3000/api/users/login",{email,password})
+    .then((response)=>{
+      if((response.data[0])){
+        LogonUser(response.data[0]);
+      onSuccess();
+      }
+      else{
+        alert("check your inputs")//style this alert
+      }
+      
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
 
   const handleForgotPassword = () => {
     if (!forgotEmail) {
