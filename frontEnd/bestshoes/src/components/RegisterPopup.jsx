@@ -9,7 +9,7 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
     username: '',
     email: '',
     password: '',
-    address: '',
+    Adress: '',
     phone: '',
     image: ''
   });
@@ -111,9 +111,9 @@ const RegisterPopup = ({ onClose, onSuccess }) => {
         </div>
         <input
           type="text"
-          name="address"
+          name="Adress"
           placeholder="Address"
-          value={form.address}
+          value={form.Adress}
           onChange={handleChange}
         />
         <input

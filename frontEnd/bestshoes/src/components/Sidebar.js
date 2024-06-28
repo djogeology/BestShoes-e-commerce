@@ -20,7 +20,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="section">
-        <h3 onClick={() => handleExpand('size')}>Size</h3>
+        <h3 onClick={() => handleExpand('size')}>Men Size</h3>
         {expandSections.size && (
           <div className="options">
             {['7', '8', '9', '10', '11'].map((size) => (
