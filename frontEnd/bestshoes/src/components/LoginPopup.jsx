@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPopup.css';
 import axios from 'axios';
-import logo from "../images/logo.jpg"
+import logo from "../images/logo.jpg";
 
 const LoginPopup = ({ onClose, onSuccess, onRegisterClick,LogonUser }) => {
   const [email, setEmail] = useState('');

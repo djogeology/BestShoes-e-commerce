@@ -23,6 +23,18 @@ module.exports = {
       res.status(200).json(results);
     });
   },
+  getByCategorie: function(req, res) {
+    const categoryName = req.params.category;
+
+    Products.getByCategorie(categoryName, function(err, results) {
+      if (err) {
+        console.error('Error fetching product by Catgory:', err.message);
+        res.status(500).json({ error: 'Failed to fetch product by Category' });
+        return;
+      }
+      res.status(200).json(results);
+    });
+  },
   addProduct: function(req, res) {
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = req.body;
 

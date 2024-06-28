@@ -60,28 +60,17 @@ module.exports = {
       callback(null, results);
     });
   },
-  getByQuantity: function(callback) {
-    const query = 'SELECT * FROM products WHERE quantity < 10';
-    conn.query(query, function(error, results) {
-      if (error) {
-        console.error('Error fetching products by quantity:', error.message);
-        callback(error, null);
+  getByCategorie: function(category, callback) {
+    const sql = 'SELECT p.* FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?';
+    conn.query(sql, [category], (err, results) => {
+      if (err) {
+        console.error('Error fetching product by ID:', err.message);
+        callback(err, null);
         return;
       }
-      console.log('Products fetched by quantity successfully:', results);
-      callback(null, results);
-    });
-  },
-  getByDate: function(callback) {
-    const query = 'SELECT * FROM products WHERE created_at > NOW() - INTERVAL 10 DAY';
-    conn.query(query, function(error, results) {
-      if (error) {
-        console.error('Error fetching products by date:', error.message);
-        callback(error, null);
-        return;
-      }
-      console.log('Products fetched by date successfully:', results);
+      console.log('Product fetched by ID successfully:', results);
       callback(null, results);
     });
   }
 };
+
