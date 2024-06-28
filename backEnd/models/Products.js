@@ -56,5 +56,18 @@ module.exports = {
       console.log('Product deleted from database successfully:', results);
       callback(null, results);
     });
+  },
+  getByCategorie: function(category, callback) {
+    const sql = 'SELECT p.* FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?';
+    conn.query(sql, [category], (err, results) => {
+      if (err) {
+        console.error('Error fetching product by ID:', err.message);
+        callback(err, null);
+        return;
+      }
+      console.log('Product fetched by ID successfully:', results);
+      callback(null, results);
+    });
   }
 };
+

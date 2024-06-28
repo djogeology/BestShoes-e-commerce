@@ -203,7 +203,7 @@ const App = () => {
   const renderView = () => {
     switch (currentView) {
       case 'men':
-        return <Men products={productData.men} />;
+        return <Men />;
       case 'women':
         return <Women products={productData.women} />;
       case 'kids':
