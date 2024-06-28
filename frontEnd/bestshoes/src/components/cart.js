@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './cart.css';
 
-const Cart = ({initialCartItems,cartItems,setCartItems}) => {
- 
-
+const Cart = ({ initialCartItems, cartItems, setCartItems }) => {
   const handleQuantityChange = (id, newQuantity) => {
     setCartItems(cartItems.map(item => item.id === id ? { ...item, quantity: newQuantity } : item));
   };
