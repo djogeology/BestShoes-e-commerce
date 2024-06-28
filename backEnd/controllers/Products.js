@@ -1,3 +1,4 @@
+// controllers/Products.js
 const Products = require('../models/Products');
 
 module.exports = {
@@ -39,10 +40,10 @@ module.exports = {
       created_at
     };
 
-    Products.add(product, (err, results) => {
+    Products.add(product, (err, results) => {     
       if (err) {
-        console.error('Error adding product:', err.message);
-        res.status(500).json({ error: 'Failed to add product' });
+        console.log(err);
+        res.status(500).json({ err });
         return;
       }
       res.status(200).json({ message: 'Product added successfully', results });
@@ -51,13 +52,20 @@ module.exports = {
   updateProduct: function(req, res) {
     const productId = req.params.id;
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = req.body;
-
+  
+    if (!image) {
+      // Handle the case where image is not provided or is null
+      console.error('Image is missing or null.');
+      res.status(400).json({ error: 'Image is required.' });
+      return;
+    }
+  
     const product = {
       name,
       price,
       description,
-      image,
-      size,
+      image, // Ensure image is provided in the request body
+      size: JSON.stringify(size),
       quantity,
       state,
       category_id,
@@ -65,11 +73,11 @@ module.exports = {
       brand_id,
       created_at
     };
-
+  
     Products.update(productId, product, (err, results) => {
       if (err) {
-        console.error('Error updating product:', err.message);
-        res.status(500).json({ error: 'Failed to update product' });
+        console.error('Error updating product:', err);
+        res.status(500).json({ err });
         return;
       }
       res.status(200).json({ message: 'Product updated successfully', results });
@@ -85,6 +93,24 @@ module.exports = {
         return;
       }
       res.status(200).json({ message: 'Product deleted successfully', results });
+    });
+  },
+  getProductsByQuantity: function(req, res) {
+    Products.getByQuantity(function(err, results) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(results);
+      }
+    });
+  },
+  getProductsByDate: function(req, res) {
+    Products.getByDate(function(err, results) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(results);
+      }
     });
   }
 };
