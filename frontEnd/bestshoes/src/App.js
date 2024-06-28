@@ -8,7 +8,9 @@ import New from './components/New';
 import Footer from './components/Footer';
 import LoginPopup from './components/LoginPopup';
 import RegisterPopup from './components/RegisterPopup';
-import Cart from './components/cart'
+import Cart from './components/cart';
+import SVGIcon from "./components/SVGIcon"
+import Profile from "./components/profile"
 import './App.css';
 // Example product data
 const productData = {
@@ -163,7 +165,9 @@ const App = () => {
   const [currentView, setCurrentView] = useState('home');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // user//
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // Dropdown visibility state
   const initialCartItems = [
     {
       id: 1,
@@ -180,8 +184,8 @@ const App = () => {
       quantity: 2,
     },
   ];
-  const [cartItems, setCartItems] = useState(initialCartItems);
-
+  const [cartItems, setCartItems] = useState(initialCartItems); //cartitems//
+//*signin signup//
   const handleLoginClick = () => setIsLoginOpen(true);
   const handleRegisterClick = () => setIsRegisterOpen(true);
 
@@ -199,6 +203,14 @@ const App = () => {
     setIsRegisterOpen(false);
     setIsLoginOpen(true);
   };
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  const handleLogout = () => {
+    setUser(null);
+    setDropdownOpen(false);
+    setCurrentView('home');
+  };
 
   const renderView = () => {
     switch (currentView) {
@@ -214,6 +226,8 @@ const App = () => {
         return <New products={productData.new} />;
         case 'cart':
         return <Cart cartItems={cartItems} setCartItems={setCartItems} initialCartItems={initialCartItems}/>;
+        case 'Profile':
+        return <Profile user={user} />;
       default:
         return <HomePage />;
     }
@@ -237,10 +251,26 @@ const App = () => {
         </nav>
         <div className="header-icons">
           {user ? (
-            <>
+            <div className="user-menu">
               <img src={user.image} alt="User" className="user-image" />
               <div className="sign-in">{user.username}</div>
-            </>
+              <div className="menu" onClick={handleDropdownToggle}>
+                <SVGIcon />
+              </div>
+              {dropdownOpen && (
+                <div className="dropdown-menu">
+                  <button onClick={() => setCurrentView('Profile')}>
+                    Profile
+                  </button>
+                  <button onClick={() => setCurrentView('orders')}>
+                    Orders
+                  </button>
+                  <button onClick={handleLogout}>
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <div className="sign-in" onClick={handleLoginClick}>Sign In</div>
           )}
