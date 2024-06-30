@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import HomePage from './components/HomePage';
 import Men from './components/Men';
 import Women from './components/Women';
@@ -162,7 +162,11 @@ const productData = {
 };
 
 const App = () => {
-  const [currentView, setCurrentView] = useState('home');
+  const getInitialView = () => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('view') || 'home';
+  };
+  const [currentView, setCurrentView] = useState(getInitialView);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [user, setUser] = useState(null); // user//
@@ -185,6 +189,11 @@ const App = () => {
     },
   ];
   const [cartItems, setCartItems] = useState(initialCartItems); //cartitems//
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('view', currentView);
+    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+  }, [currentView]);
 //*signin signup//
   const handleLoginClick = () => setIsLoginOpen(true);
   const handleRegisterClick = () => setIsRegisterOpen(true);
@@ -211,22 +220,26 @@ const App = () => {
     setDropdownOpen(false);
     setCurrentView('home');
   };
-
+  const handleAddToCart = (product) => {
+    setCartItems([...cartItems, { ...product, quantity: 1 }]);
+  };
   const renderView = () => {
     switch (currentView) {
       case 'men':
-        return <Men />;
+        return <Men  onAddToCart={handleAddToCart}/>;
       case 'women':
-        return <Women products={productData.women} />;
+        return <Women products={productData.women} onAddToCart={handleAddToCart} />;
       case 'kids':
-        return <Kids products={productData.kids} />;
+        return <Kids products={productData.kids} onAddToCart={handleAddToCart} />;
       case 'on-sale':
-        return <OnSale products={productData.onSale} />;
+        return <OnSale products={productData.onSale} onAddToCart={handleAddToCart} />;
       case 'new':
-        return <New products={productData.new} />;
+        return <New products={productData.new}  onAddToCart={handleAddToCart}/>;
         case 'cart':
         return <Cart cartItems={cartItems} setCartItems={setCartItems} initialCartItems={initialCartItems}/>;
         case 'Profile':
+        return <Profile user={user} />;
+        case 'profile':
         return <Profile user={user} />;
       default:
         return <HomePage />;
