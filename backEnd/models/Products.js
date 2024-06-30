@@ -82,6 +82,9 @@ module.exports = {
         return;
       }
       console.log('Products fetched by date successfully:', results);
+      callback(null, results);
+    });
+  },
 
   getByCategorie: function(category, callback) {
     const sql = 'SELECT p.* FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?';
