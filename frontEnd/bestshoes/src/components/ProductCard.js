@@ -1,10 +1,11 @@
+// ProductCard.js
 import React from 'react';
 import './ProductCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onProductClick }) => {
   const mainImage = product.image[0];
   const variationImages = product.image.slice(1);
 
@@ -23,7 +24,7 @@ const ProductCard = ({ product }) => {
           ))}
           {variationImages.length > 4 && <span className="more-variations">+{variationImages.length - 4}</span>}
         </div>
-        <h3 className="product-name">{product.name}</h3>
+        <h3 className="product-name" onClick={() => onProductClick(product)}>{product.name}</h3>
         <p className="product-description">{product.description}</p>
         <p className="product-price">${product.price}</p>
       </div>
