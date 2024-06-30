@@ -85,6 +85,7 @@ module.exports = {
       callback(null, results);
     });
   },
+
   getByCategorie: function(category, callback) {
     const sql = 'SELECT p.* FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?';
     conn.query(sql, [category], (err, results) => {
