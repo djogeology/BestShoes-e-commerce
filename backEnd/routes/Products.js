@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
 const Products = require('../controllers/Products');
+
+const { getAllProducts, getProductById, addProduct, updateProduct, deleteProduct, getProductsByQuantity, getProductsByDate , getByCategorie} = require('../controllers/Products');
+
 
 router.get('/', Products.getAllProducts); // Make sure these methods are defined in your Products controller
 router.get('/:id', Products.getProductById);

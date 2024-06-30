@@ -79,6 +79,7 @@ module.exports = {
     });
   },
 
+
   getByQuantity: function(callback) {
     const sql = 'SELECT * FROM products WHERE quantity > ?';
     const minQuantity = 30; // Define the minimum quantity here
