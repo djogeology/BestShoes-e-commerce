@@ -112,12 +112,10 @@ module.exports = {
   },
 
   getProductsByQuantity: function(req, res) {
-    const quantityOnsale = req.params.quantity;
-
-    Products.getByQuantity(quantityOnsale, function(err, results) {
+    Products.getByQuantity(function(err, results) {
       if (err) {
-        console.error(`Error fetching products by quantity ${quantityOnsale}:`, err.message);
-        res.status(500).json({ error: `Failed to fetch products by quantity ${quantityOnsale}` });
+        console.error('Error fetching products by quantity:', err.message);
+        res.status(500).json({ error: 'Failed to fetch products' });
         return;
       }
       res.status(200).json(results);

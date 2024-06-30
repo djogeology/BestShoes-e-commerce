@@ -1,23 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getAllProducts,
-  getProductById,
-  addProduct,
-  updateProduct,
-  deleteProduct,
-  getByCategory,
-  getProductsByQuantity,
-  getProductsByDate
-} = require('../controllers/Products');
+const Products = require('../controllers/Products');
 
-router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-router.get('/category/:category', getByCategory);
-router.post('/', addProduct);
-router.put('/:id', updateProduct);
-router.delete('/:id', deleteProduct);
-router.get('/onsale/:quantity', getProductsByQuantity); // Route definition updated for quantity-based search
-router.get('/new', getProductsByDate); // Assuming getByDate fetches new products
+router.get('/', Products.getAllProducts); // Make sure these methods are defined in your Products controller
+router.get('/:id', Products.getProductById);
+router.get('/category/:category', Products.getByCategory);
+router.post('/', Products.addProduct);
+router.put('/:id', Products.updateProduct);
+router.delete('/:id', Products.deleteProduct);
+router.get('/onsale', Products.getProductsByQuantity); // Route definition for quantity-based search
+router.get('/new', Products.getProductsByDate); // Assuming getByDate fetches new products
 
 module.exports = router;

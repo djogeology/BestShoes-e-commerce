@@ -79,15 +79,17 @@ module.exports = {
     });
   },
 
-  getByQuantity: function(quantity, callback) {
-    const query = 'SELECT * FROM products WHERE quantity < ?';
-    conn.query(query, [quantity], (error, results) => {
+  getByQuantity: function(callback) {
+    const sql = 'SELECT * FROM products WHERE quantity > ?';
+    const minQuantity = 30; // Define the minimum quantity here
+
+    conn.query(sql, [minQuantity], function(error, results) {
       if (error) {
-        console.error('Error fetching products by quantity:', error.message);
+        console.error('Error executing query:', error.message);
         callback(error, null);
         return;
       }
-      console.log('Products fetched by quantity successfully:', results);
+      console.log('Results:', results); // Log results for debugging
       callback(null, results);
     });
   },
