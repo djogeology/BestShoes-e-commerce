@@ -107,6 +107,10 @@ module.exports = {
         return;
       }
       console.log('Products fetched by date successfully:', results);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5de2fbb79b87cf7b408ea80bed9d0f1f2cc3f64b
       callback(null, results);
     });
   },
