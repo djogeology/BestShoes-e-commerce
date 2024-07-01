@@ -1,4 +1,3 @@
-// OnSale.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
@@ -12,8 +11,10 @@ const OnSale = () => {
   useEffect(() => {
     const fetchOnSaleProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/products/onsale');
-        setProducts(response.data);
+        const response = await axios.get('http://localhost:3000/api/products?maxQuantity=10');
+        // Filter products with quantity less than 10
+        const filteredProducts = response.data.filter(product => product.quantity < 10);
+        setProducts(filteredProducts);
       } catch (err) {
         setError(err);
       } finally {
