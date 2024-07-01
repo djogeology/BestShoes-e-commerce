@@ -54,7 +54,7 @@ const Sidebar = ({ filtred, allFilters, setAll }) => {
   return (
     <div className="sidebar">
       <div className="section">
-        <h3 onClick={() => handleExpand('size')}>Size</h3>
+        <h3 onClick={() => handleExpand('size')}>Men Size</h3>
         {expandSections.size && (
           <div className="options">
             {['35', '40', '34', '36', '37'].map((size) => (

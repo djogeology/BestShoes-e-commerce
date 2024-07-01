@@ -1,22 +1,22 @@
-// Women.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import ProductCard from './ProductCard';
 import Sidebar from './Sidebar';
+import ProductDetails from './ProductDetails';
 import './CategoryPage.css';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-const Women = () => {
+const Women = ({ onAddToCart }) => {
   const [products, setProducts] = useState([]);
-  const [productFiltred, setProductFiltred] = useState([]);
-  const [filtredBy, setFiltredBy] = useState([]);
+  const [productFiltered, setProductFiltered] = useState([]);
+  const [filteredBy, setFilteredBy] = useState([]);
   const [filterTrigger, setFilterTrigger] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/products/category/Women')
       .then(response => {
         setProducts(response.data);
-        setProductFiltred(response.data);
+        setProductFiltered(response.data);
       })
       .catch(err => {
         console.log(err);
@@ -25,55 +25,83 @@ const Women = () => {
 
   useEffect(() => {
     if (filterTrigger) {
-      setFiltredBy((prevFilters) => [...prevFilters, filterTrigger]);
+      setFilteredBy(prevFilters => [...prevFilters, filterTrigger]);
     }
   }, [filterTrigger]);
 
   useEffect(() => {
-    if (filtredBy.length === 0) {
-      setProductFiltred(products);
+    if (filteredBy.length === 0) {
+      setProductFiltered(products);
     } else {
-      const RecFilter = function (filters, i = 0, data = products) {
+      const applyFilters = (filters, i = 0, data = products) => {
         if (i === filters.length) {
           return data;
         }
 
-        let key = Object.keys(filters[i])[0];
-        let value = filters[i][key];
-        if (key === "size") {
+        const key = Object.keys(filters[i])[0];
+        const value = filters[i][key];
 
+        if (key === 'size') {
           data = data.filter(product => product[key].includes(+value));
-        } 
-        else if(key === "price"){
-          data = data.filter(product => extractNumbers(value)[0] <= parseFloat(product[key].replace(/[^0-9.-]+/g,"")) && parseFloat(product[key].replace(/[^0-9.-]+/g,"")) <= extractNumbers(value)[1] );
-        }
-        else {
+        } else if (key === 'price') {
+          const [minPrice, maxPrice] = extractNumbers(value);
+          data = data.filter(product => {
+            const productPrice = parseFloat(product[key].replace(/[^0-9.-]+/g, ''));
+            return productPrice >= minPrice && productPrice <= maxPrice;
+          });
+        } else {
           data = data.filter(product => product[key] === +value);
-          console.log(data)
         }
-        return RecFilter(filters, i + 1, data);
+
+        return applyFilters(filters, i + 1, data);
       };
 
-      setProductFiltred(RecFilter(filtredBy));
+      setProductFiltered(applyFilters(filteredBy));
     }
-  }, [filtredBy, products]);
+  }, [filteredBy, products]);
+
   function extractNumbers(range) {
-    // Use a regular expression to find all numeric values in the string
     const numbers = range.match(/\d+/g);
-    // Convert the array of strings to an array of numbers
     return numbers ? numbers.map(Number) : [];
   }
+
+  const handleProductClick = product => {
+    setSelectedProduct(product);
+  };
+
+  const handleBack = () => {
+    setSelectedProduct(null);
+  };
+
+  const handleAddToCart = product => {
+    onAddToCart(product);
+  };
+
   return (
     <div className="category-page">
-      <h1>Women's High Heels</h1>
-      <div className="category-content">
-        <Sidebar filtred={setFilterTrigger} allFilters={filtredBy} setAll={setFiltredBy}/>
-        <div className="product-grid">
-          {productFiltred.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </div>
+      {selectedProduct ? (
+        <ProductDetails
+          product={selectedProduct}
+          onBack={handleBack}
+          onAddToCart={handleAddToCart}
+        />
+      ) : (
+        <>
+          <h1>Women's High Heels</h1>
+          <div className="category-content">
+            <Sidebar filtred={setFilterTrigger} allFilters={filteredBy} setAll={setFilteredBy} />
+            <div className="product-grid">
+              {productFiltered.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onProductClick={handleProductClick}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

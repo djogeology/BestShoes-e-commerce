@@ -1,9 +1,37 @@
 // OnSale.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import ProductCard from './ProductCard';
 import './CategoryPage.css';
 
-const OnSale = ({ products }) => {
+const OnSale = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchOnSaleProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/products/onsale');
+        setProducts(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOnSaleProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className="category-page">
       <h2>On Sale</h2>

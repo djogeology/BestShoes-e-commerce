@@ -2,26 +2,26 @@
 import React, { useEffect , useState} from 'react';
 import ProductCard from './ProductCard';
 import Sidebar from './Sidebar';
+import ProductDetails from './ProductDetails';
 import './CategoryPage.css';
 import axios from 'axios';
 
-const Kids = () => {
-  const [products, setProducts] = useState([]);
-  const [productFiltred, setProductFiltred] = useState([]);
-  const [filtredBy, setFiltredBy] = useState([]);
-  const [filterTrigger, setFilterTrigger] = useState(null);
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/api/products/category/kids')
-      .then(response => {
-        setProducts(response.data);
-        setProductFiltred(response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
+const Kids = ({onAddToCart}) => {
+  const [products,setProducts]=useState([]);
+  const [productFiltred,setProductFiltred]=useState([]);
+  const [filtredBy,setFiltredBy]=useState([]);
+  const [filterTrigger,setFilterTrigger]=useState();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  useEffect(()=>{
+  axios.get('http://localhost:3000/api/products/category/Kids')
+  .then(response=>{
+  setProducts(response.data)
+  setProductFiltred(response.data)
+  })
+  .catch(err=>{
+    console.log(err);
+  })
+},[])
   useEffect(() => {
     if (filterTrigger) {
       setFiltredBy((prevFilters) => [...prevFilters, filterTrigger]);
@@ -63,17 +63,33 @@ const Kids = () => {
     return numbers ? numbers.map(Number) : [];
   }
 
-  return (
-    <div className="category-page">
+const handleProductClick = (product) => {
+  setSelectedProduct(product);
+};
+
+const handleBack = () => {
+  setSelectedProduct(null);
+};
+const handleAddToCart = (product) => {
+  onAddToCart(product);
+};
+return (
+  <div className="category-page">
+    {selectedProduct ? (
+      <ProductDetails product={selectedProduct} onBack={handleBack} onAddToCart={handleAddToCart} />
+    ) : (
+      <>
       <h1>Kids' Shoes</h1>
       <div className="category-content">
         <Sidebar filtred={setFilterTrigger} allFilters={filtredBy} setAll={setFiltredBy}/>
         <div className="product-grid">
             {productFiltred.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onProductClick={handleProductClick}  />
         ))}
       </div>
       </div>
+      </>
+      )}
     </div>
   );
 };

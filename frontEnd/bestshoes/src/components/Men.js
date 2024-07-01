@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import ProductCard from './ProductCard';
+import ProductDetails from './ProductDetails';
 import Sidebar from './Sidebar';
 import './CategoryPage.css';
-import axios from 'axios';
 
-const Men = () => {
+const Men = ({onAddToCart}) => {
   const [products, setProducts] = useState([]);
-  const [productFiltred, setProductFiltred] = useState([]);
-  const [filtredBy, setFiltredBy] = useState([]);
-  const [filterTrigger, setFilterTrigger] = useState(null);
+  const [productFiltered, setProductFiltered] = useState([]);
+  const [filteredBy, setFilteredBy] = useState([]);
+  const [filterTrigger, setFilterTrigger] = useState();
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/products/category/Men')
       .then(response => {
         setProducts(response.data);
-        setProductFiltred(response.data);
+        setProductFiltered(response.data);
       })
       .catch(err => {
         console.log(err);
@@ -23,13 +25,13 @@ const Men = () => {
 
   useEffect(() => {
     if (filterTrigger) {
-      setFiltredBy((prevFilters) => [...prevFilters, filterTrigger]);
+      setFilteredBy((prevFilters) => [...prevFilters, filterTrigger]);
     }
   }, [filterTrigger]);
 
   useEffect(() => {
-    if (filtredBy.length === 0) {
-      setProductFiltred(products);
+    if (filteredBy.length === 0) {
+      setProductFiltered(products);
     } else {
       const RecFilter = function (filters, i = 0, data = products) {
         if (i === filters.length) {
@@ -52,9 +54,9 @@ const Men = () => {
         return RecFilter(filters, i + 1, data);
       };
 
-      setProductFiltred(RecFilter(filtredBy));
+      setProductFiltered(RecFilter(filteredBy));
     }
-  }, [filtredBy, products]);
+  }, [filteredBy, products]);
   function extractNumbers(range) {
     // Use a regular expression to find all numeric values in the string
     const numbers = range.match(/\d+/g);
@@ -62,17 +64,34 @@ const Men = () => {
     return numbers ? numbers.map(Number) : [];
   }
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleBack = () => {
+    setSelectedProduct(null);
+  };
+  const handleAddToCart = (product) => {
+    onAddToCart(product);
+  };
+
   return (
     <div className="category-page">
-      <h1>Men's Shoes</h1>
-      <div className="category-content">
-        <Sidebar filtred={setFilterTrigger} allFilters={filtredBy} setAll={setFiltredBy} />
-        <div className="product-grid">
-          {productFiltred.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </div>
+      {selectedProduct ? (
+        <ProductDetails product={selectedProduct} onBack={handleBack} onAddToCart={handleAddToCart}/>
+      ) : (
+        <>
+          <h1>Men's Shoes</h1>
+          <div className="category-content">
+          <Sidebar filtred={setFilterTrigger} allFilters={filteredBy} setAll={setFilteredBy} />
+            <div className="product-grid">
+              {productFiltered.map((product) => (
+                <ProductCard key={product.id} product={product} onProductClick={handleProductClick} />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
