@@ -1,4 +1,3 @@
-// Men.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
@@ -31,7 +30,7 @@ const Men = ({onAddToCart}) => {
   }, [filterTrigger]);
 
   useEffect(() => {
-    if (!filteredBy || filteredBy.length === 0) {
+    if (filteredBy.length === 0) {
       setProductFiltered(products);
     } else {
       const RecFilter = function (filters, i = 0, data = products) {
@@ -42,24 +41,28 @@ const Men = ({onAddToCart}) => {
         let key = Object.keys(filters[i])[0];
         let value = filters[i][key];
         if (key === "size") {
-          let filteredProducts = data.filter(product => {
-            return product[key].includes(+value);
-          });
-          data = filteredProducts;
-          return RecFilter(filters, i + 1, data);
+
+          data = data.filter(product => product[key].includes(+value));
+        } 
+        else if(key === "price"){
+          data = data.filter(product => extractNumbers(value)[0] <= parseFloat(product[key].replace(/[^0-9.-]+/g,"")) && parseFloat(product[key].replace(/[^0-9.-]+/g,"")) <= extractNumbers(value)[1] );
         }
         else {
-          let filteredProducts = data.filter(product => {
-            return product[key] === (+value);
-          });
-          data = filteredProducts;
-          return RecFilter(filters, i + 1, data);
+          data = data.filter(product => product[key] === +value);
+          console.log(data)
         }
+        return RecFilter(filters, i + 1, data);
       };
 
       setProductFiltered(RecFilter(filteredBy));
     }
   }, [filteredBy, products]);
+  function extractNumbers(range) {
+    // Use a regular expression to find all numeric values in the string
+    const numbers = range.match(/\d+/g);
+    // Convert the array of strings to an array of numbers
+    return numbers ? numbers.map(Number) : [];
+  }
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -80,7 +83,7 @@ const Men = ({onAddToCart}) => {
         <>
           <h1>Men's Shoes</h1>
           <div className="category-content">
-            <Sidebar filtred={setFilterTrigger} />
+          <Sidebar filtred={setFilterTrigger} allFilters={filteredBy} setAll={setFilteredBy} />
             <div className="product-grid">
               {productFiltered.map((product) => (
                 <ProductCard key={product.id} product={product} onProductClick={handleProductClick} />
