@@ -111,8 +111,11 @@ module.exports = {
     });
   },
 
+
   getProductsByQuantity: function(req, res) {
-    Products.getByQuantity(function(err, results) {
+    const minQuantity = req.query.minQuantity ? parseInt(req.query.minQuantity) : 30; // Default to 30 if not provided
+    console.log('Requested minQuantity:', minQuantity); // Log minQuantity from request
+    Products.getByQuantity(minQuantity, function(err, results) {
       if (err) {
         console.error('Error fetching products by quantity:', err.message);
         res.status(500).json({ error: 'Failed to fetch products' });
@@ -120,6 +123,7 @@ module.exports = {
       }
       res.status(200).json(results);
     });
+  
   },
 
   getProductsByDate: function(req, res) {
@@ -132,4 +136,6 @@ module.exports = {
       res.status(200).json(results);
     });
   }
+
 };
+

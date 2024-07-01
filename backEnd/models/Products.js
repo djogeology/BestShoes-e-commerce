@@ -1,14 +1,19 @@
 const conn = require('../Database/index');
 
 module.exports = {
-  getAll: function(callback) {
+  getAll(callback) {
     const sql = 'SELECT * FROM products';
-    conn.query(sql, function(error, results) {
-      callback(error, results);
+    conn.query(sql, (error, results) => {
+      if (error) {
+        console.error('Error fetching all products:', error.message);
+        callback(error, null);
+        return;
+      }
+      callback(null, results);
     });
   },
 
-  add: function(product, callback) {
+  add(product, callback) {
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = product;
     const query = 'INSERT INTO products (name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const params = [name, price, description, image, JSON.stringify(size), quantity, state, category_id, style_id, brand_id, created_at];
@@ -24,7 +29,7 @@ module.exports = {
     });
   },
 
-  getById: function(id, callback) {
+  getById(id, callback) {
     const query = 'SELECT * FROM products WHERE id = ?';
     conn.query(query, [id], (err, results) => {
       if (err) {
@@ -37,7 +42,7 @@ module.exports = {
     });
   },
 
-  update: function(id, product, callback) {
+  update(id, product, callback) {
     const { name, price, description, image, size, quantity, state, category_id, style_id, brand_id, created_at } = product;
     const query = 'UPDATE products SET name = ?, price = ?, description = ?, image = ?, size = ?, quantity = ?, state = ?, category_id = ?, style_id = ?, brand_id = ?, created_at = ? WHERE id = ?';
     const params = [name, price, description, image, JSON.stringify(size), quantity, state, category_id, style_id, brand_id, created_at, id];
@@ -53,7 +58,7 @@ module.exports = {
     });
   },
 
-  delete: function(id, callback) {
+  delete(id, callback) {
     const query = 'DELETE FROM products WHERE id = ?';
     conn.query(query, [id], (err, results) => {
       if (err) {
@@ -66,7 +71,7 @@ module.exports = {
     });
   },
 
-  getByCategory: function(category, callback) {
+  getByCategory(category, callback) {
     const sql = 'SELECT p.* FROM products p JOIN categories c ON p.category_id = c.id WHERE c.name = ?';
     conn.query(sql, [category], (err, results) => {
       if (err) {
@@ -79,25 +84,23 @@ module.exports = {
     });
   },
 
-
-  getByQuantity: function(callback) {
+  getByQuantity: function(minQuantity = 10, callback) {
     const sql = 'SELECT * FROM products WHERE quantity > ?';
-    const minQuantity = 30; // Define the minimum quantity here
-
-    conn.query(sql, [minQuantity], function(error, results) {
+    console.log('Executing query with minQuantity:', minQuantity); // Log minQuantity for debugging
+    conn.query(sql, [minQuantity], (error, results) => {
       if (error) {
         console.error('Error executing query:', error.message);
         callback(error, null);
         return;
       }
-      console.log('Results:', results); // Log results for debugging
+      console.log('Query results:', results); // Log results for debugging
       callback(null, results);
     });
   },
 
-  getByDate: function(callback) {
+  getByDate(callback) {
     const query = 'SELECT * FROM products WHERE created_at > DATE_SUB(NOW(), INTERVAL 10 DAY)';
-    conn.query(query, function(error, results) {
+    conn.query(query, (error, results) => {
       if (error) {
         console.error('Error fetching products by date:', error.message);
         callback(error, null);
@@ -106,5 +109,7 @@ module.exports = {
       console.log('Products fetched by date successfully:', results);
       callback(null, results);
     });
-  }
-};
+  }}
+
+
+

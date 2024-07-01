@@ -1,4 +1,3 @@
-// New.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
@@ -12,8 +11,15 @@ const New = () => {
   useEffect(() => {
     const fetchNewArrivals = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/products/new');
-        setProducts(response.data);
+        const response = await axios.get('http://localhost:3000/api/products');
+        // Filter products created within the last 10 days
+        const filteredProducts = response.data.filter(product => {
+          const createdAt = new Date(product.created_at);
+          const tenDaysAgo = new Date();
+          tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+          return createdAt > tenDaysAgo;
+        });
+        setProducts(filteredProducts);
       } catch (err) {
         setError(err);
       } finally {
