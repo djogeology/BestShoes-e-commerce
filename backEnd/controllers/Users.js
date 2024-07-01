@@ -1,5 +1,5 @@
 const users = require('../models/Users');
-
+const bcrypt=require('bcrypt')
 module.exports = {
   getUserByEmailAndPass: function(req, res) {
     const {email,password} = req.body
@@ -34,17 +34,26 @@ module.exports = {
       res.status(200).json(results);
     });
   },
-  addUser: function(req, res) {
+  addUser: async function(req, res) {
     const { fullname, username, password, email, Adress, phone, image } = req.body;
-
-    users.add(fullname, username, password, email, Adress, phone, image, (err, results) => {
-      if (err) {
-        console.log(err)
-        res.status(500).json({err});
-        return;
-      }
+  
+    try {
+      // Generate a salt and hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Now use hashedPassword in your database operation
+      const results = await new Promise((resolve, reject) => {
+        users.add(fullname, username, hashedPassword, email, Adress, phone, image, (err, results) => {
+          if (err) reject(err);
+          else resolve(results);
+        });
+      });
+  
       res.status(200).json({ message: 'User added successfully', results });
-    });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ err });
+    }
   },
   updateUser: function(req, res) {
     const userId = req.params.id;

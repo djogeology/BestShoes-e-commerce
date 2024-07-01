@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
+import ProductDetails from './ProductDetails'; // Assuming ProductDetails is a component for showing details
+import Sidebar from './Sidebar'; // Assuming Sidebar is a component for filtering
 import './CategoryPage.css';
 
-const New = () => {
+const New = ({ onAddToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [filtredBy, setFiltredBy] = useState([]);
+  const [filterTrigger, setFilterTrigger] = useState(false);
 
   useEffect(() => {
     const fetchNewArrivals = async () => {
@@ -30,6 +35,14 @@ const New = () => {
     fetchNewArrivals();
   }, []);
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleBack = () => {
+    setSelectedProduct(null);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -40,12 +53,25 @@ const New = () => {
 
   return (
     <div className="category-page">
-      <h2>New Arrivals</h2>
-      <div className="product-grid">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {selectedProduct ? (
+        <ProductDetails product={selectedProduct} onBack={handleBack} onAddToCart={onAddToCart} />
+      ) : (
+        <>
+          <h1>New arrivals</h1>
+          <div className="category-content">
+            <Sidebar filtred={setFilterTrigger} allFilters={filtredBy} setAll={setFiltredBy} />
+            <div className="product-grid">
+              {products.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onProductClick={handleProductClick} // Pass the click handler
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
